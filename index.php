@@ -49,19 +49,32 @@
             'releaseYear' => 2022
         ]
     ];
+    // filer the books by author
+    function filterAuthor($books, $author)
+    {
+        $filteredBooks = [];
+        foreach ($books as $book) {
+            if ($book['author'] === $author) {
+                $filteredBooks[] = $book;
+            }
+        }
+        return $filteredBooks;
+    }
+
+    // Example usage:
+    $filteredBooks = filterAuthor($books, 'Andrew Hunt, David Thomas');
     ?>
 
     <ul>
-        <?php foreach ($books as $book): ?>
-            <?php if ($book['author'] = 'Andy Weir') : ?> <!-- Fixed comparison -->
-                <li>
-                    <a href="<?= $book['purchaseUrl']; ?>"> <!-- Fixed href -->
-                        <?= $book['name']; ?> (<?= $book['releaseYear']; ?>) <!-- Fixed echo -->
-                    </a>
-                </li>
-            <?php endif; ?>
+        <?php foreach ($filteredBooks as $book): ?>
+            <li>
+                <a href="<?= htmlspecialchars($book['purchaseUrl']); ?>">
+                    <?= htmlspecialchars($book['name']); ?> (<?= htmlspecialchars($book['releaseYear']); ?>)
+                </a>
+            </li>
         <?php endforeach; ?>
     </ul>
+
 </body>
 
 </html>
